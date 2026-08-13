@@ -1,0 +1,196 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f5f7fa;
+  --bg-2: #eef2f6;
+  --card: #ffffff;
+  --card-2: #f8fafc;
+  --line: #dbe3ee;
+  --text: #102033;
+  --muted: #5c6b80;
+  --navy: #12305b;
+  --blue: #1d4f91;
+  --blue-2: #163e73;
+  --mint: #0f7a5a;
+  --gold: #1d4f91;
+  --gold-2: #163e73;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-card: var(--card);
+  --color-card-2: var(--card-2);
+  --color-line: var(--line);
+  --color-ink: var(--text);
+  --color-muted: var(--muted);
+  --color-navy: var(--navy);
+  --color-blue: var(--blue);
+  --color-blue-2: var(--blue-2);
+  --color-mint: var(--mint);
+  --color-gold: var(--gold);
+  --color-gold-2: var(--gold-2);
+  --font-sans: var(--font-source-sans);
+}
+
+* {
+  border-color: var(--line);
+}
+
+.page-wrap {
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .page-wrap {
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .page-wrap {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+::selection {
+  background: #d6e4f5;
+  color: var(--navy);
+}
+
+body {
+  font-family: var(--font-sans), "Segoe UI", Calibri, sans-serif;
+  min-height: 100%;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+input,
+select,
+button {
+  font-family: inherit;
+}
+
+input,
+select {
+  outline: none;
+  box-shadow: none;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text);
+  box-shadow: 0 0 0 1000px #fff inset;
+  transition: background-color 9999s ease-out;
+}
+
+.job-prose {
+  color: #334155;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.job-prose p,
+.job-prose ul,
+.job-prose ol,
+.job-prose h2,
+.job-prose h3,
+.job-prose h4,
+.job-prose blockquote {
+  margin: 0 0 1rem;
+}
+
+.job-prose h2,
+.job-prose h3,
+.job-prose h4 {
+  color: var(--navy);
+  font-weight: 700;
+  line-height: 1.35;
+  margin-top: 1.6rem;
+}
+
+.job-prose h2 {
+  font-size: 1.25rem;
+}
+
+.job-prose h3,
+.job-prose h4 {
+  font-size: 1.1rem;
+}
+
+.job-prose ul,
+.job-prose ol {
+  padding-left: 1.2rem;
+}
+
+.job-prose ul {
+  list-style: disc;
+}
+
+.job-prose ol {
+  list-style: decimal;
+}
+
+.job-prose li {
+  margin: 0.3rem 0;
+}
+
+.job-prose li p {
+  margin: 0;
+}
+
+.job-prose strong,
+.job-prose b {
+  color: var(--text);
+  font-weight: 650;
+}
+
+.job-prose a {
+  color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.job-prose a:hover {
+  color: var(--blue-2);
+}
