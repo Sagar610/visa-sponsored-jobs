@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { isStale, loadStore } from "@/lib/store";
+import { isDataWritable, isEphemeralRuntime, isStale, loadStore } from "@/lib/store";
 import { syncAll } from "@/lib/sync";
 
 export const dynamic = "force-dynamic";
@@ -17,23 +17,64 @@ function authorized(request: NextRequest) {
   return header === secret || query === secret;
 }
 
-export async function GET(request: NextRequest) {
-  if (!authorized(request)) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-  const force = request.nextUrl.searchParams.get("force") === "1";
+async function cannotPersistResponse() {
   const { meta } = await loadStore();
-  if (!force && !isStale(meta)) {
-    return NextResponse.json({ meta, stale: false, skipped: true });
+  return NextResponse.json(
+    {
+      skipped: true,
+      reason: "read-only",
+      message:
+        "This host cannot write data/. Run npm run sync locally or use the GitHub sync workflow, then redeploy.",
+      meta,
+      ephemeral: isEphemeralRuntime(),
+    },
+    { status: 200 }
+  );
+}
+
+export async function GET(request: NextRequest) {
+  try {
+    if (!authorized(request)) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    if (!(await isDataWritable())) {
+      return cannotPersistResponse();
+    }
+    const force = request.nextUrl.searchParams.get("force") === "1";
+    const { meta } = await loadStore();
+    if (!force && !isStale(meta)) {
+      return NextResponse.json({ meta, stale: false, skipped: true });
+    }
+    const next = await syncAll();
+    return NextResponse.json(next);
+  } catch (error) {
+    return NextResponse.json(
+      {
+        error: error instanceof Error ? error.message : String(error),
+        lastSyncOk: false,
+      },
+      { status: 500 }
+    );
   }
-  const next = await syncAll();
-  return NextResponse.json(next);
 }
 
 export async function POST(request: NextRequest) {
-  if (!authorized(request)) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  try {
+    if (!authorized(request)) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    if (!(await isDataWritable())) {
+      return cannotPersistResponse();
+    }
+    const meta = await syncAll();
+    return NextResponse.json(meta);
+  } catch (error) {
+    return NextResponse.json(
+      {
+        error: error instanceof Error ? error.message : String(error),
+        lastSyncOk: false,
+      },
+      { status: 500 }
+    );
   }
-  const meta = await syncAll();
-  return NextResponse.json(meta);
 }

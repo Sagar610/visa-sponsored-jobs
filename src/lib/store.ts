@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { access, constants, mkdir, readFile, unlink, writeFile } from "node:fs/promises";
 import path from "node:path";
 import type { Job, Sponsor, StoreShape, SyncMeta } from "./types";
 
@@ -24,9 +24,34 @@ const emptyMeta = (): SyncMeta => ({
 
 let cache: StoreShape | null = null;
 let cacheAt = 0;
+let writableCache: boolean | null = null;
 
 export function dataDir() {
   return DATA_DIR;
+}
+
+/** True when this process can persist sync output under data/ (false on Vercel). */
+export function isEphemeralRuntime() {
+  return Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
+}
+
+export async function isDataWritable(): Promise<boolean> {
+  if (writableCache !== null) return writableCache;
+  if (isEphemeralRuntime()) {
+    writableCache = false;
+    return false;
+  }
+  try {
+    await ensureDataDir();
+    const probe = path.join(DATA_DIR, `.write-probe-${process.pid}`);
+    await writeFile(probe, "ok", "utf8");
+    await access(probe, constants.W_OK);
+    await unlink(probe);
+    writableCache = true;
+  } catch {
+    writableCache = false;
+  }
+  return writableCache;
 }
 
 export async function ensureDataDir() {

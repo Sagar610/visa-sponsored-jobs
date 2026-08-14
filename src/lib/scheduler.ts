@@ -6,6 +6,7 @@ let started = false;
 
 export function startScheduler() {
   if (started) return;
+  if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) return;
   started = true;
 
   const tick = async () => {

@@ -1,5 +1,15 @@
 [
   {
+    "id": "govuk-2026-08-13-monthly-entry-clearance-visa-applications-july-2026",
+    "title": "Monthly entry clearance visa applications: July 2026",
+    "summary": "Statistics on visa applications for people coming to the UK for work, study and family reasons.",
+    "url": "https://www.gov.uk/government/statistics/monthly-entry-clearance-visa-applications-july-2026",
+    "source": "govuk",
+    "sourceName": "GOV.UK",
+    "publishedAt": "2026-08-13T08:30:10Z",
+    "kind": "official"
+  },
+  {
     "id": "bbc-2026-08-06-car-washes-and-vape-shops-can-still-sponsor-skilled-foreign-worke",
     "title": "Car washes and vape shops can still sponsor skilled foreign workers despite visa changes",
     "summary": "The rules were tightened in July 2025 to restrict the scheme mostly to graduate-level employees who would be earning at least £41,700.",
@@ -96,7 +106,7 @@
     "url": "https://www.gov.uk/government/statistics/monthly-entry-clearance-visa-applications-june-2026",
     "source": "govuk",
     "sourceName": "GOV.UK",
-    "publishedAt": "2026-07-09T08:30:14Z",
+    "publishedAt": "2026-07-09T08:30:00Z",
     "kind": "official"
   },
   {

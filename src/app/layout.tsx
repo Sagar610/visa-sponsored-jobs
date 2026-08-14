@@ -116,7 +116,7 @@ export default async function RootLayout({
         >
           Skip to content
         </a>
-        <SyncWatcher stale={isStale(meta)} />
+        <SyncWatcher stale={isStale(meta)} autoSync={!process.env.VERCEL} />
         <Header />
         <div id="main" className="flex flex-1 flex-col">
           {children}

@@ -2,21 +2,39 @@
 
 import { useEffect, useState } from "react";
 
-export function SyncWatcher({ stale }: { stale: boolean }) {
-  const [status, setStatus] = useState<"idle" | "syncing" | "done" | "error">(
-    stale ? "syncing" : "idle"
-  );
+type Status = "idle" | "syncing" | "done" | "error";
+
+/**
+ * Triggers an in-process sync when listings are stale.
+ * Disabled on Vercel/serverless — data/ is read-only there; use GitHub Actions + redeploy.
+ */
+export function SyncWatcher({
+  stale,
+  autoSync = true,
+}: {
+  stale: boolean;
+  autoSync?: boolean;
+}) {
+  const [status, setStatus] = useState<Status>(stale && autoSync ? "syncing" : "idle");
 
   useEffect(() => {
-    if (!stale) return;
+    if (!stale || !autoSync) return;
     let cancelled = false;
     setStatus("syncing");
     fetch("/api/sync", { method: "POST" })
-      .then((res) => {
-        if (!res.ok) throw new Error("sync failed");
-        return res.json();
-      })
-      .then(() => {
+      .then(async (res) => {
+        const body = (await res.json().catch(() => ({}))) as {
+          skipped?: boolean;
+          reason?: string;
+          lastSyncOk?: boolean;
+          error?: string;
+        };
+        if (!res.ok) throw new Error(body.error || "sync failed");
+        // Host cannot persist — treat as no-op, not a user-facing failure.
+        if (body.skipped && body.reason === "read-only") {
+          if (!cancelled) setStatus("idle");
+          return;
+        }
         if (cancelled) return;
         setStatus("done");
         window.location.reload();
@@ -27,7 +45,7 @@ export function SyncWatcher({ stale }: { stale: boolean }) {
     return () => {
       cancelled = true;
     };
-  }, [stale]);
+  }, [stale, autoSync]);
 
   if (status === "idle") return null;
 
