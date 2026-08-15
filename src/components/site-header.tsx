@@ -18,8 +18,8 @@ export function SiteHeader() {
           <Image
             src={SITE_LOGO}
             alt={SITE_LOGO_ALT}
-            width={753}
-            height={199}
+            width={1459}
+            height={235}
             className="h-10 w-auto sm:h-12"
             priority
           />
