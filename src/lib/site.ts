@@ -7,13 +7,12 @@ export const SITE_LOGO = "/visa-sponsored-jobs-logo.png";
 export const SITE_LOGO_ALT =
   "Visa Sponsored Jobs logo — UK visa sponsored jobs at licensed sponsors";
 
+export const PRODUCTION_SITE_URL = "https://visasponsoredjobs.vercel.app";
+
 export function siteUrl() {
   const explicit = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-  if (explicit) return explicit;
-  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
-    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL.replace(/\/$/, "")}`;
-  }
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL.replace(/\/$/, "")}`;
+  if (explicit && !/visa-sponsored-jobs-alpha/i.test(explicit)) return explicit;
+  if (process.env.VERCEL || process.env.NODE_ENV === "production") return PRODUCTION_SITE_URL;
   return "http://localhost:3000";
 }
 

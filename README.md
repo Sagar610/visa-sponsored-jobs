@@ -10,19 +10,19 @@
 </p>
 
 <p align="center">
-  <a href="https://visa-sponsored-jobs-alpha.vercel.app"><img src="https://img.shields.io/badge/Live%20site-Open-1d4f91?style=flat-square" alt="Live site" /></a>
-  <a href="https://visa-sponsored-jobs-alpha.vercel.app/jobs"><img src="https://img.shields.io/badge/Browse-Jobs-0f7a5a?style=flat-square" alt="Browse jobs" /></a>
+  <a href="https://visasponsoredjobs.vercel.app"><img src="https://img.shields.io/badge/Live%20site-Open-1d4f91?style=flat-square" alt="Live site" /></a>
+  <a href="https://visasponsoredjobs.vercel.app/jobs"><img src="https://img.shields.io/badge/Browse-Jobs-0f7a5a?style=flat-square" alt="Browse jobs" /></a>
   <img src="https://img.shields.io/badge/Next.js-16-000?style=flat-square&logo=nextdotjs&logoColor=white" alt="Next.js 16" />
   <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Data-GOV.UK%20register-12305b?style=flat-square" alt="GOV.UK register" />
 </p>
 
 <p align="center">
-  <a href="https://visa-sponsored-jobs-alpha.vercel.app"><b>Live demo</b></a> ·
-  <a href="https://visa-sponsored-jobs-alpha.vercel.app/jobs">Jobs</a> ·
-  <a href="https://visa-sponsored-jobs-alpha.vercel.app/sponsors">Sponsors</a> ·
-  <a href="https://visa-sponsored-jobs-alpha.vercel.app/news">Visa news</a> ·
-  <a href="https://visa-sponsored-jobs-alpha.vercel.app/guide">Skilled Worker guide</a>
+  <a href="https://visasponsoredjobs.vercel.app"><b>Live demo</b></a> ·
+  <a href="https://visasponsoredjobs.vercel.app/jobs">Jobs</a> ·
+  <a href="https://visasponsoredjobs.vercel.app/sponsors">Sponsors</a> ·
+  <a href="https://visasponsoredjobs.vercel.app/news">Visa news</a> ·
+  <a href="https://visasponsoredjobs.vercel.app/guide">Skilled Worker guide</a>
 </p>
 
 <p align="center">
@@ -89,7 +89,7 @@ flowchart LR
 ```
 
 1. Download the latest **Worker and Temporary Worker** register from GOV.UK and keep Skilled Worker licences.
-2. Pull live vacancies from public job APIs and boards (Arbeitnow, We Work Remotely, Jobicy, ATS boards, Teaching Vacancies, The Muse, and optional [Adzuna](https://developer.adzuna.com) / [Reed](https://www.reed.co.uk/developers)).
+2. Pull live vacancies from public job APIs and boards (Arbeitnow, We Work Remotely, Jobicy, Greenhouse, Lever, Ashby, Teaching Vacancies, The Muse, and optional [Adzuna](https://developer.adzuna.com) / [Reed](https://www.reed.co.uk/developers)).
 3. Keep a role if the advert talks about visa sponsorship, **or** the employer matches a current Skilled Worker licence and does not say they cannot sponsor.
 4. Publish searchable jobs, sponsor profiles, and daily visa news. Applications always happen on the original listing.
 
@@ -122,7 +122,7 @@ Open [http://localhost:3000](http://localhost:3000).
 Copy `.env.example` to `.env.local` and add free keys from [Adzuna](https://developer.adzuna.com) and [Reed](https://www.reed.co.uk/developers) for wider coverage. The site works without them.
 
 ```env
-NEXT_PUBLIC_SITE_URL=https://your-domain.com
+NEXT_PUBLIC_SITE_URL=https://visasponsoredjobs.vercel.app
 NEXT_PUBLIC_CONTACT_EMAIL=
 ADZUNA_APP_ID=
 ADZUNA_APP_KEY=
@@ -130,7 +130,7 @@ REED_API_KEY=
 SYNC_SECRET=
 ```
 
-Set `NEXT_PUBLIC_SITE_URL` on production so sitemap, robots and Open Graph tags use your live domain.
+The live site is [https://visasponsoredjobs.vercel.app](https://visasponsoredjobs.vercel.app). Set `NEXT_PUBLIC_SITE_URL` to that URL on Vercel so sitemap, robots and Open Graph tags stay on the production domain — not a preview hostname.
 
 ## Keeping production data fresh
 

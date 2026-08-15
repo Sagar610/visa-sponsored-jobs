@@ -1,5 +1,5 @@
 const UA =
-  "VisaSponsoredJobs/1.0 (+https://visasponsoredjobs.com; UK Skilled Worker aggregator using public APIs)";
+  "VisaSponsoredJobs/1.0 (+https://visasponsoredjobs.vercel.app; UK Skilled Worker aggregator using public APIs)";
 
 export async function fetchText(
   url: string,
