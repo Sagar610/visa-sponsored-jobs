@@ -3,9 +3,7 @@ import type { ReactNode } from "react";
 import { Source_Sans_3 } from "next/font/google";
 import { Footer, Header } from "@/components/chrome";
 import { JsonLd } from "@/components/json-ld";
-import { SyncWatcher } from "@/components/sync-watcher";
 import { DEVELOPER, SITE_DESCRIPTION, SITE_LOGO, SITE_NAME, siteUrl } from "@/lib/site";
-import { isStale, loadStore } from "@/lib/store";
 import "./globals.css";
 
 const sourceSans = Source_Sans_3({
@@ -70,7 +68,6 @@ export default async function RootLayout({
 }: {
   children: ReactNode;
 }) {
-  const { meta } = await loadStore();
   return (
     <html lang="en-GB" className={`${sourceSans.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-bg font-sans text-ink">
@@ -116,7 +113,6 @@ export default async function RootLayout({
         >
           Skip to content
         </a>
-        <SyncWatcher stale={isStale(meta)} autoSync={!process.env.VERCEL} />
         <Header />
         <div id="main" className="flex flex-1 flex-col">
           {children}
